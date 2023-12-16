@@ -1,13 +1,40 @@
-import React from 'react';
+import React,{ useContext, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import { ThemeContext, ThemeProvider } from './context/ThemeContext';
+import FlashCardsPage from './pages/FlashCardsPage';
+import ContactPage from './pages/ContactPage';
+import NavBar from './components/NavBar';
 
 
 
-const App = () => {
+function App() {
  
   return (
-    <h1>App</h1>
+    <ThemeProvider>
+    <Router>
+    <ThemeApplicator />
+      <NavBar />
+
+      <Routes>
+
+      <Route path="/" element={<HomePage />} />
+      <Route path="/flashcards" element={<FlashCardsPage />} />
+      <Route path="/contact" element={<ContactPage />} />
+    
+      </Routes>
+    </Router>
+    </ThemeProvider>
   );
 }
+function ThemeApplicator() {
+  const { theme } = useContext(ThemeContext);
 
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  return null;
+}
 
 export default App;
