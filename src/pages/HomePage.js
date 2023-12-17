@@ -13,6 +13,14 @@ const HomePage = () => {
       useEffect(() => {
         const container = document.getElementById('animated-background-container');
         
+        function adjustContainerHeight() {
+          const docHeight = document.body.scrollHeight;
+          container.style.height = docHeight + 'px';
+      }
+  
+      window.addEventListener('resize', adjustContainerHeight);
+      adjustContainerHeight(); 
+
         function createMovingElement() {
           const elem = document.createElement('div');
           elem.classList.add('animated-element');
@@ -27,7 +35,7 @@ const HomePage = () => {
     
           const keyframes = [
             { transform: 'translateY(0)' },
-            { transform: 'translateY(100vh)' }
+            { transform: `translateY(${document.body.scrollHeight}px)` } 
           ];
           const timing = {
             duration: 3000 + Math.random() * 10000, 
@@ -41,7 +49,10 @@ const HomePage = () => {
         
         const intervalId = setInterval(createMovingElement, 500);
     
-        return () => clearInterval(intervalId); 
+        return () => {
+          clearInterval(intervalId);
+          window.removeEventListener('resize', adjustContainerHeight);
+      };
       }, []);
   return (
     <div className="home-container">
@@ -82,22 +93,69 @@ const HomePage = () => {
           
         </ul>
         <ul className="skills-list">
-          <li>Flask</li>
-          <li>Spring</li>
-          <li>React</li>
+          <li>HTML/CSS</li>
+          <li>jQuery</li>
+          <li>Bootstrap</li>
           
         </ul>
       </div>
     </section>
 
-      <section className="portfolio-section">
-        <h2>My Portfolio</h2>
-        <div className="projects-container">
-        <div className="project">
-          <h3>Project 1</h3>
-          <p>Description of Project 1</p>
-          <a href="project_link" target="_blank">View Project</a>
+    <section className="portfolio-section">
+        <div className="portfolio-header">
+         <a href="https://github.com/Orkhan11980?tab=repositories" rel="noopener noreferrer" target='_blank'>
+          <img src="/icons-github.png"  alt="Github Logo" className="portfolio-logo" />
+          </a>
+          <h2 id="portfoli">My Portfolio</h2>
+          <p id="project-recent">My recent projects</p>
         </div>
+        <div className="projects-container">
+          <div className="project">
+            <h3>Video To Gif Converter</h3>
+            <p>This is a Python tool that simplifies the process of converting video files into GIF images. With an easy-to-use interface and powerful capabilities :)</p>
+            <div className="button-container">
+            <a href="https://github.com/Orkhan11980/VideoToGIF" target="_blank" rel="noopener noreferrer" className="button code">Code</a>
+            </div>
+          </div>
+          <div className="project">
+            <h3>My Personal Website</h3>
+            <p>This website is a creative expression of my skills and interests, meticulously crafted using HTML and CSS. It serves as a digital portfolio showcasing my work, experiences, and passions. :)</p>
+            <div className="button-container">
+            <a href="https://orkhan11980.github.io/wm1_fall23_sec2/" target="_blank" rel="noopener noreferrer" className="button demo">Demo </a> 
+            <a href="https://github.com/Orkhan11980/wm1_fall23_sec2" target="_blank" rel="noopener noreferrer" className="button code">Code</a>
+           </div>
+          </div>
+          <div className="project">
+            <h3>Video Compression and Muting</h3>
+            
+            <p>This Python script allows you to compress video files and mute their audio tracks in a specified input folder. The compressed and muted videos are then saved to an output folder. :)</p>
+            <div className="button-container">
+            <a href="https://github.com/Orkhan11980/VideoCompressAndMute" target="_blank" rel="noopener noreferrer" className="button code">Code</a>
+           </div>
+          </div>
+          <div className="project">
+            <h3>Data Fetching and Display</h3>
+            <p>This project showcases the ability to fetch data from an API and dynamically populate a web page with the loaded data in a user-friendly format. :)</p>
+            <div className="button-container">
+            <a href="https://orkhan11980.github.io/fetchDummyData/" target="_blank" rel="noopener noreferrer" className="button demo">Demo</a>
+            <a href="https://github.com/Orkhan11980/fetchDummyData" target="_blank" rel="noopener noreferrer" className="button code">Code</a>
+            </div>
+          </div>
+          <div className="project">
+            <h3>Bookshop Database Management System</h3>
+            <p>This project is a Java-based console application developed to manage the operations of a bookshop. It focuses on database interaction using JDBC and covers various aspects of database management :)</p>
+            <div className="button-container">
+            <a href="https://github.com/Orkhan11980/BookshopJava" target="_blank" rel="noopener noreferrer" className="button code">Code</a>
+            </div>
+          </div>
+          <div className="project">
+            <h3>My Digital-Card</h3>
+            <p>It's used to create a visually Digital-Card appealing and responsive design that looks great on any device :)</p>
+            <div className="button-container">
+            <a href="https://orkhan11980.github.io/assignment-card/" target="_blank" rel="noopener noreferrer" className="button demo">Demo</a>
+            <a href="https://github.com/Orkhan11980/assignment-card" target="_blank" rel="noopener noreferrer" className="button code">Code</a>
+            </div>
+          </div>
         </div>
       </section>
 
