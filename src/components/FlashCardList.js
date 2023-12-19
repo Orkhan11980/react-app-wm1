@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FlashCard from './FlashCard';
-import { getAllCards } from '../services/flashCardService'; // Adjust the path as per your project structure
+import { getAllCards } from '../services/flashCardService'; 
+import '../styles/flashCard.css';
 
 const FlashCardList = () => {
   const [flashCards, setFlashCards] = useState([]);
@@ -12,7 +13,7 @@ const FlashCardList = () => {
         setFlashCards(cards);
       } catch (error) {
         console.error('Error fetching flash cards:', error);
-        // Handle the error appropriately
+        // Handle the error 
       }
     };
 
@@ -33,7 +34,7 @@ return (
       ))}
     </div>
   );
-  // ...
+  
   
 };
 

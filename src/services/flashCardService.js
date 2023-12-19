@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-// Replace with your actual json-server URL
+
 const baseUrl = 'http://localhost:3002/cards';
 
 const getAllCards = async () => {
@@ -10,7 +10,7 @@ const getAllCards = async () => {
     console.log(response.data);
     return response.data;
   } catch (error) {
-    // Handle errors here, possibly re-throw or handle them based on your error policy
+    // Handle errors 
     throw error;
   }
 };

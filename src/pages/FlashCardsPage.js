@@ -1,6 +1,6 @@
 
 import React from 'react';
-import FlashCardList from '../components/FlashCardList'; // Adjust the path as per your project structure
+import FlashCardList from '../components/FlashCardList'; 
 
 const FlashCardsPage = () => {
   return (
