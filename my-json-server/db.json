@@ -1,68 +1,46 @@
 {
-    "cards": [
-      {
-        "id": 1,
-        "front": "What is the capital of France?",
-        "back": "The capital of France is Paris.",
-        "lastModified": "2023-12-19T12:00:00Z",
-        "status": "Want to Learn"
-      },
-      {
-        "id": 2,
-        "front": "What is the capital of France?",
-        "back": "The capital of France is Paris.",
-        "status": "Want to Learn",
-        "lastModified": "2023-12-16T12:00:00Z"
-      },
-      {
-        "id": 3,
-        "front": "What is the chemical symbol for Gold?",
-        "back": "The chemical symbol for Gold is Au.",
-        "status": "Learned",
-        "lastModified": "2023-12-15T11:30:00Z"
-      },
-      {
-        "id": 4,
-        "front": "Image of a cat",
-        "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
-        "status": "Noted",
-        "lastModified": "2023-12-14T15:45:00Z"
-      },
-      {
-        "id": 5,
-        "front": "What is the capital of France?",
-        "back": "The capital of France is Paris.",
-        "lastModified": "2023-12-19T12:00:00Z",
-        "status": "Want to Learn"
-      },
-      {
-        "id": 6,
-        "front": "What is the capital of France?",
-        "back": "The capital of France is Paris.",
-        "status": "Want to Learn",
-        "lastModified": "2023-12-16T12:00:00Z"
-      },
-      {
-        "id": 7,
-        "front": "What is the chemical symbol for Gold?",
-        "back": "The chemical symbol for Gold is Au.",
-        "status": "Learned",
-        "lastModified": "2023-12-15T11:30:00Z"
-      },
-      {
-        "id": 8,
-        "front": "Image of a cat",
-        "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
-        "status": "Noted",
-        "lastModified": "2023-12-14T15:45:00Z"
-      },
-      {
-        "id": 9,
-        "front": "Image of a cat",
-        "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
-        "status": "Noted",
-        "lastModified": "2023-12-14T15:45:00Z"
-      }
-    ]
+  "cards": [
+    {
+      "id": 19,
+      "front": "Image of a cat",
+      "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
+      "status": "Noted",
+      "lastModified": "2023-12-14T15:45:00Z"
+    },
+    {
+      "id": 10,
+      "front": "Image of a cat",
+      "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
+      "status": "Noted",
+      "lastModified": "2023-12-14T15:45:00Z"
+    },
+    {
+      "id": 11,
+      "front": "Image of a cat",
+      "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
+      "status": "Noted",
+      "lastModified": "2023-12-14T15:45:00Z"
+    },
+    {
+      "id": 12,
+      "front": "Image of a cat",
+      "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
+      "status": "Noted",
+      "lastModified": "2023-12-14T15:45:00Z"
+    },
+    {
+      "id": 13,
+      "front": "Image of a cat",
+      "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
+      "status": "Noted",
+      "lastModified": "2023-12-14T15:45:00Z"
+    },
+    {
+      "id": 14,
+      "front": "Image of a cat",
+      "back": "This is an image of a domestic cat, a small, typically furry, carnivorous mammal.",
+      "status": "Noted",
+      "lastModified": "2023-12-14T15:45:00Z"
+    }
+  ]
 }
-  

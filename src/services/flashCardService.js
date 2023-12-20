@@ -1,60 +1,68 @@
-import axios from 'axios'
+import axios from 'axios';
 
+const baseUrl = 'http://localhost:3003/cards';
 
+const handleResponse = (response) => {
+  // You can handle common response logic here
+  console.log('Response:', response);
+  return response.data;
+};
 
-const baseUrl = 'http://localhost:3002/cards';
+const handleError = (error) => {
+  // You can handle common error logic here
+  console.error('Error:', error);
+  throw error;
+};
 
 const getAllCards = async () => {
   try {
     const response = await axios.get(baseUrl);
-    console.log(response.data);
-    return response.data;
+    return handleResponse(response);
   } catch (error) {
-    // Handle errors 
-    throw error;
+    handleError(error);
   }
 };
 
 const getCardById = async (id) => {
   try {
     const response = await axios.get(`${baseUrl}/${id}`);
-    return response.data;
+    return handleResponse(response);
   } catch (error) {
-    throw error;
+    handleError(error);
   }
 };
 
 const createCard = async (newCardData) => {
   try {
     const response = await axios.post(baseUrl, newCardData);
-    return response.data;
+    return handleResponse(response);
   } catch (error) {
-    throw error;
+    handleError(error);
   }
 };
 
 const updateCard = async (id, updatedCardData) => {
   try {
     const response = await axios.put(`${baseUrl}/${id}`, updatedCardData);
-    return response.data;
+    return handleResponse(response);
   } catch (error) {
-    throw error;
+    handleError(error);
   }
 };
 
 const deleteCard = async (id) => {
   try {
     const response = await axios.delete(`${baseUrl}/${id}`);
-    return response.data;
+    return handleResponse(response);
   } catch (error) {
-    throw error;
+    handleError(error);
   }
 };
 
 export {
-    getAllCards,
-    getCardById,
-    createCard,
-    updateCard,
-    deleteCard
-  };
+  getAllCards,
+  getCardById,
+  createCard,
+  updateCard,
+  deleteCard
+};
