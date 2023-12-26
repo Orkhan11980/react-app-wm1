@@ -1,15 +1,15 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3003/cards';
+const baseUrl = 'http://localhost:3001/cards';
 
 const handleResponse = (response) => {
-  // You can handle common response logic here
+  
   console.log('Response:', response);
   return response.data;
 };
 
 const handleError = (error) => {
-  // You can handle common error logic here
+  
   console.error('Error:', error);
   throw error;
 };

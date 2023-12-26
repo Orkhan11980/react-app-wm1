@@ -1,84 +1,138 @@
-import React, { useState } from 'react';
-import '../styles/flashCard.css';  
+import React, { useState, useCallback, memo } from 'react';
+import '../styles/flashCard.css';
 
-const FlashCard = ({ id, front, back, lastModified, status, handleUpdate, handleDelete }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editFront, setEditFront] = useState(front);
-  const [editBack, setEditBack] = useState(back);
-  const [isLoading, setIsLoading] = useState(false);
+const FlashCard = memo(({ id, front, back, lastModified, status, handleUpdate, handleDelete }) => {
+  const [cardState, setCardState] = useState({
+    isFlipped: false,
+    isEditing: false,
+    editFront: front,
+    editBack: back,
+    isLoading: false,
+    editStatus: status,
+  });
 
-  const toggleFlipCard = () => {
-    if (!isEditing) {
-      setIsFlipped(!isFlipped);
+  const toggleFlipCard = useCallback(() => {
+    if (!cardState.isEditing) {
+      setCardState({ ...cardState, isFlipped: !cardState.isFlipped });
     }
-  };
+  }, [cardState]);
 
-  const handleToggleEdit = () => {
-    setIsEditing(!isEditing);
-  };
+  const handleToggleEdit = useCallback((event) => {
+    event.stopPropagation();
+    setCardState({ ...cardState, isEditing: !cardState.isEditing });
+  }, [cardState]);
 
-  const handleInputChange = setter => event => {
-    setter(event.target.value);
-  };
+  const handleInputChange = useCallback(
+    (field) => (event) => {
+      setCardState({ ...cardState, [field]: event.target.value });
+    },
+    [cardState]
+  );
 
-  const handleSave = async (event) => {
-    event.stopPropagation(); 
-    setIsLoading(true);
+  const handleSave = useCallback(async (event) => {
+    event.stopPropagation();
+    setCardState({ ...cardState, isLoading: true });
+    const formatter = new Intl.DateTimeFormat('default', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false 
+    });
     const updatedData = {
-      front: editFront,
-      back: editBack,
-      lastModified: new Date().toISOString(),
-      status
+      front: cardState.editFront,
+      back: cardState.editBack,
+      lastModified: formatter.format(new Date()),
+      status: cardState.editStatus, 
     };
     try {
       await handleUpdate(id, updatedData);
+      setCardState(prevState => ({ ...prevState, lastModified: updatedData.lastModified }));
     } catch (error) {
       console.error("Error updating card:", error);
     } finally {
-      setIsLoading(false);
-      setIsEditing(false);
+      setCardState(prevState => ({ ...prevState, isLoading: false, isEditing: false }));
     }
-  };
+  }, [cardState, id, handleUpdate]);
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = useCallback(async () => {
+    setCardState({ ...cardState, isLoading: true });
     try {
-      setIsLoading(true);
       await handleDelete(id);
     } catch (error) {
       console.error("Error deleting card:", error);
     } finally {
-      setIsLoading(false);
+      setCardState({ ...cardState, isLoading: false });
     }
-  };
+  }, [cardState, id, handleDelete]);
 
   return (
     <div className="flashcard" onClick={toggleFlipCard}>
-      {isEditing ? (
-        <div className="card edit-mode">
-          <input type="text" value={editFront} onChange={handleInputChange(setEditFront)} />
-          <input type="text" value={editBack} onChange={handleInputChange(setEditBack)} />
-          <button onClick={(event) => handleSave(event)} disabled={isLoading}>Save</button>
-          <button onClick={handleToggleEdit} disabled={isLoading}>Cancel</button>
-        </div>
+      {cardState.isEditing ? (
+        <EditModeComponent
+          editFront={cardState.editFront}
+          editBack={cardState.editBack}
+          editStatus={cardState.editStatus}
+          isLoading={cardState.isLoading}
+          handleInputChange={handleInputChange}
+          handleSave={handleSave}
+          handleToggleEdit={handleToggleEdit}
+        />
       ) : (
-        <div className={`card ${isFlipped ? 'flipped' : ''}`}>
-          <div className="card-face front">
-            <div className="card-content">
-              <p className="card-info">Last Modified: {lastModified}</p>
-              <p className="card-info">Status: {status}</p>
-              <div>{front}</div>
-              <button onClick={handleToggleEdit} disabled={isLoading}>Edit</button>
-              <button onClick={handleDeleteClick} disabled={isLoading}>Delete</button>
-            </div>
-          </div>
-          <div className="card-face back">
-            {back}
-          </div>
-        </div>
+        <DisplayModeComponent
+          front={front}
+          back={back}
+          lastModified={lastModified}
+          status={status}
+          isLoading={cardState.isLoading}
+          handleToggleEdit={handleToggleEdit}
+          handleDeleteClick={handleDeleteClick}
+          isFlipped={cardState.isFlipped}
+        />
       )}
     </div>
   );
-};
+});
+
+const EditModeComponent = memo(({ editFront, editBack, editStatus, isLoading, handleInputChange, handleSave, handleToggleEdit }) => (
+  <div className="card edit-mode">
+     <input type="text" placeholder="Front Text" value={editFront} onChange={handleInputChange('editFront')} />
+    <input type="text" placeholder="Back Text" value={editBack} onChange={handleInputChange('editBack')} />
+
+    <select value={editStatus} onChange={handleInputChange('editStatus')}>
+      <option value="Want to Learn">Want to Learn</option>
+      <option value="Learned">Learned</option>
+      <option value="Noted">Noted</option>
+      
+    </select>
+    <div className="card-controls-edit">
+      <button className="save" onClick={handleSave} disabled={isLoading}>Save</button>
+      <button className="cancel" onClick={handleToggleEdit} disabled={isLoading}>Cancel</button>
+    </div>
+  </div>
+));
+
+
+
+const DisplayModeComponent = memo(({ front, back, lastModified, status, isLoading, handleToggleEdit, handleDeleteClick, isFlipped }) => (
+  <div className={`card ${isFlipped ? 'flipped' : ''}`}>
+    <div className="card-face front">
+      <div className="card-content">
+        <p className="card-info">Last Modified: {lastModified}</p>
+        <p className="card-info">Status: {status}</p>
+        <div>{front}</div>
+        <div className="card-controls">
+        <button className="edit" onClick={handleToggleEdit} disabled={isLoading}>Edit</button>
+        <button className="delete" onClick={handleDeleteClick} disabled={isLoading}>Delete</button>
+      </div>
+      </div>
+    </div>
+    <div className="card-face back">
+      {back}
+    </div>
+  </div>
+));
+
 
 export default FlashCard;

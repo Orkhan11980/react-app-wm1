@@ -1,66 +1,275 @@
 
 
 .flashcard {
-    width: 200px;
-    height: 300px;
-    perspective: 1000px;
-    margin: 35px;
-  }
-  
-  .card {
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.5s;
-    cursor: pointer;
-    transform-origin: center center;
-   
-  }
-  
-  .card.flipped {
-    transform: rotateY(180deg);
-  }
-  
-  .card-face {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .front {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    color: #333;
-    width: 100%; 
-    height: 100%; 
-    transform: rotateY(0deg);
-  }
-  
-  .back {
-    background-color: #007bff;
-    color: #fff;
-    width: 100%; 
-    height: 100%; 
-    transform: rotateY(180deg);
-  }
-  
-  .card-info {
-    font-size: 14px;
-    margin-bottom: 5px;
-  }
+  width: 200px;
+  height: 300px;
+  perspective: 1000px;
+  margin: 35px;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+  cursor: pointer;
+  transform-origin: center center;
+ 
+}
+.card-controls {
+  position: absolute;
+  top: 10px; 
+  right: 10px; 
+  display: none;
+  z-index: 10; 
+}
+
+.flashcard:hover .card-controls {
+  display: block;
+}
+
+.card-controls button {
+  background-color: #007bff; 
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.card-controls button:hover {
+  background-color: #0056b3; 
+  transform: scale(1.1); 
+}
+
+.card-controls button.delete {
+  background-color: #dc3545; 
+}
+
+.card-controls button.delete:hover {
+  background-color: #c82333; 
+}
+
+
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  padding: 10px;
+  text-align: center;
+}
+
+.front {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #333;
+  width: 100%; 
+  height: 100%; 
+  transform: rotateY(0deg);
+}
+
+.back {
+  background-color: #007bff;
+  color: #fff;
+  width: 100%; 
+  height: 100%; 
+  transform: rotateY(180deg);
+}
+
+.card-info {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
 
 
 .flashcard-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+
+.card-controls-edit {
+  display: flex;         
+  justify-content: center; 
+  align-items: center;  
+  gap: 10px;            
+}
+
+.card.edit-mode {
+background-color: #fff; 
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+padding: 20px; 
+display: flex;
+flex-direction: column; 
+justify-content: center; 
+align-items: center; 
+}
+
+
+.card.edit-mode input[type="text"] {
+width: 90%; 
+padding: 10px;
+margin: 10px 0;
+border: 1px solid #ccc;
+border-radius: 5px; 
+font-size: 16px;
+}
+
+
+.card.edit-mode .card-controls-edit {
+margin-top: 25px; 
+
+}
+
+.card.edit-mode .card-controls-edit button {
+font-family: 'Helvetica', 'Arial', sans-serif; 
+font-size: 16px; 
+font-weight: 500; 
+color: white;
+background-color: #007bff; 
+border: none; 
+padding: 10px 20px; 
+margin: 0 10px; 
+border-radius: 25px; 
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+cursor: pointer; 
+outline: none; 
+transition: all 0.2s ease-in-out; 
+}
+
+.card.edit-mode .card-controls-edit button:hover {
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); 
+transform: translateY(-2px); 
+}
+.card.edit-mode .card-controls-edit button:active {
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+transform: translateY(0); 
+}
+
+.card.edit-mode .card-controls-edit button.cancel {
+background-color: #dc3545; 
+}
+
+.card.edit-mode .card-controls-edit button.cancel:hover {
+background-color: #c82333; 
+}
+
+
+
+
+
+.add-card-placeholder {
+width: 200px;
+height: 300px;
+margin: 35px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 15px; 
+background-color: #f8f9fa; 
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+transition: transform 0.2s, box-shadow 0.2s; 
+cursor: pointer;
+}
+
+.add-card-placeholder:hover {
+transform: translateY(-3px); 
+box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-icon-container {
+
+display: flex;
+align-items: center;
+justify-content: center;
+width: 100%;
+height: 100%;
+}
+
+.plus-icon {
+width: 50px;
+height: 50px;
+transition: transform 0.2s; 
+}
+
+.plus-icon:hover {
+transform: rotate(90deg); 
+}
+
+.new-card-form-content {
+width: calc(100% - 40px); 
+height: calc(100% - 40px); 
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.card-input {
+width: 100%;
+padding: 12px 15px;
+margin: 10px 0;
+border: 1px solid #ced4da;
+border-radius: 15px; 
+font-size: 14px; 
+transition: border-color 0.2s; 
+}
+
+.card-input:focus {
+border-color: #80bdff; 
+outline: none; 
+}
+
+.form-controls {
+display: flex;
+justify-content: space-around;
+margin-top: 15px;
+}
+
+.btn {
+padding: 5px 10px;
+border: none;
+border-radius: 15px;
+cursor: pointer;
+transition: background-color 0.3s, box-shadow 0.3s;
+font-weight: bold;
+text-transform: uppercase; 
+font-size: 0.8rem;
+}
+
+.btn.add {
+background-color: #28a745; 
+color: white;
+
+}
+
+.btn.add:hover {
+background-color: #218838; 
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+}
+
+.btn.cancel {
+background-color: #dc3545; 
+color: white;
+}
+
+.btn.cancel:hover {
+background-color: #c82333; 
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
+}
+

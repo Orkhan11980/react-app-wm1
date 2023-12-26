@@ -5,7 +5,7 @@ import { ThemeContext, ThemeProvider } from './context/ThemeContext';
 import FlashCardsPage from './pages/FlashCardsPage';
 import ContactPage from './pages/ContactPage';
 import NavBar from './components/NavBar';
-import ManagerCardPage from './pages/ManagerCardPage';
+
 
 
 
@@ -24,7 +24,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/flashcards" element={<FlashCardsPage />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route path="/manage-flashcards" element={<ManagerCardPage />} />
+      
 
       </Routes>
     </Router>

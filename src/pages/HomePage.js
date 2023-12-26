@@ -1,5 +1,7 @@
 
 import React, { useEffect } from 'react';
+import githubIcon from '../images/iconGithub.png';
+
 
 
 
@@ -104,7 +106,7 @@ const HomePage = () => {
     <section className="portfolio-section">
         <div className="portfolio-header">
          <a href="https://github.com/Orkhan11980?tab=repositories" rel="noopener noreferrer" target='_blank'>
-          <img src="/icons-github.png"  alt="Github Logo" className="portfolio-logo" />
+          <img src={githubIcon} alt="Github Logo" className="portfolio-logo" />
           </a>
           <h2 id="portfoli">My Portfolio</h2>
           <p id="project-recent">My recent projects</p>
