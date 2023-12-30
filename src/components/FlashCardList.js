@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import FlashCard from './FlashCard';
 import { getAllCards, updateCard, deleteCard, createCard } from '../services/flashCardService';
 import '../styles/flashCard.css';
+import '../styles/filterOption.css'
 import SearchBar from './SearchBar';
 import plusIcon from '../images/plusIcon.png';
+
 
 const FlashCardList = () => {
   const [flashCards, setFlashCards] = useState([]);
@@ -12,6 +14,7 @@ const FlashCardList = () => {
   const [newCard, setNewCard] = useState({ front: '', back: '',status: 'Noted', lastModified: formatDate(new Date()) });
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('All');
 
   useEffect(() => {
     let isMounted = true;
@@ -31,7 +34,7 @@ const FlashCardList = () => {
       } finally {
         if (isMounted) {
           setIsLoading(false);
-        }
+        } 
       }
     };
 
@@ -45,6 +48,7 @@ const FlashCardList = () => {
   const handleSearch = (search) => {
     setSearchTerm(search);
   };
+  
 
   function formatDate(date) {
     const d = new Date(date),
@@ -57,11 +61,11 @@ const FlashCardList = () => {
     return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/') + ', ' + [hour.padStart(2, '0'), minute.padStart(2, '0')].join(':');
   }
   
-  const filteredFlashCards = flashCards.filter(
-    (card) => card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
-              card.back.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredFlashCards = flashCards.filter(card =>
+    (card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     card.back.toLowerCase().includes(searchTerm.toLowerCase())) &&
+    (statusFilter === 'All' || card.status === statusFilter)
   );
-
 
   const handleUpdate = async (id, updatedData) => {
     try {
@@ -129,6 +133,21 @@ const FlashCardList = () => {
     <div className="flashcard-container">
       
       <SearchBar onSearch={handleSearch} /> 
+
+      <div className="filter-container">
+      <label htmlFor="statusFilter">Filter by Status:</label>
+      <select
+        id="statusFilter"
+        value={statusFilter}
+        onChange={(e) => setStatusFilter(e.target.value)}
+      >
+        <option value="All">All</option>
+        <option value="Noted">Noted</option>
+        <option value="Want to Learn">Want to Learn</option>
+        <option value="Learned">Learned</option>
+        
+      </select>
+    </div>
       
       <div className="flashcard-list">
         <div className="add-card-placeholder" onClick={toggleAddForm}>
