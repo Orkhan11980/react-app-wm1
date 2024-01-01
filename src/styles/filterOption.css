@@ -1,13 +1,14 @@
-
 .filter-container {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     padding: 10px;
     margin: 10px 0;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: auto; 
+    max-width: 400px;
   }
   
   .filter-container label {
@@ -17,7 +18,7 @@
   }
   
   .filter-container select {
-    flex-grow: 1;
+    flex-grow: 0;
     padding: 8px 12px;
     border: 2px solid #ddd;
     border-radius: 8px;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, memo } from 'react';
 import '../styles/flashCard.css';
 
-const FlashCard = memo(({ id, front, back, lastModified, status, handleUpdate, handleDelete }) => {
+const FlashCard = memo(({ id, front, back, lastModified, status, handleUpdate, handleDelete,isSelected, handleSelectCard,isShareMode }) => {
   const [cardState, setCardState] = useState({
     isFlipped: false,
     isEditing: false,
@@ -68,7 +68,17 @@ const FlashCard = memo(({ id, front, back, lastModified, status, handleUpdate, h
   }, [cardState, id, handleDelete]);
 
   return (
-    <div className="flashcard" onClick={toggleFlipCard}>
+    <div className={`flashcard ${isSelected ? 'selected' : ''}`} onClick={toggleFlipCard}>
+    {isShareMode && (
+      <input 
+        type="checkbox" 
+        checked={isSelected} 
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSelectCard(id);
+        }}
+      />
+    )}
       {cardState.isEditing ? (
         <EditModeComponent
           editFront={cardState.editFront}

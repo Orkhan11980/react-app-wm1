@@ -3,8 +3,10 @@ import FlashCard from './FlashCard';
 import { getAllCards, updateCard, deleteCard, createCard } from '../services/flashCardService';
 import '../styles/flashCard.css';
 import '../styles/filterOption.css'
+import '../styles/shareButton.css'
 import SearchBar from './SearchBar';
 import plusIcon from '../images/plusIcon.png';
+
 
 
 const FlashCardList = () => {
@@ -15,6 +17,10 @@ const FlashCardList = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [selectedCards, setSelectedCards] = useState([]);
+  const [isShareMode, setIsShareMode] = useState(false);
+  const [showShareOptions, setShowShareOptions] = useState(false);
+
 
   useEffect(() => {
     let isMounted = true;
@@ -121,6 +127,38 @@ const FlashCardList = () => {
     setShowAddForm(false);
     setNewCard({ front: '', back: '' }); 
   };
+ 
+  const handleSelectCard = (cardId) => {
+    setSelectedCards(prev => {
+      if(prev.includes(cardId)){
+        return prev.filter(id => id !== cardId); 
+      } else {
+        return [...prev, cardId]; 
+      }
+    });
+  };
+
+  const handleShare = () => {
+    const selectedCardDetails = flashCards.filter(card => selectedCards.includes(card.id));
+    const emailContent = JSON.stringify(selectedCardDetails, null, 2); 
+  
+    
+    const subject = encodeURIComponent("Shared Flashcards");
+    const body = encodeURIComponent(`Here are the flashcards: \n\n${emailContent}`);
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+  
+    
+    window.open(mailtoLink, '_blank');
+    setIsShareMode(false);
+    setShowShareOptions(false);
+  };
+  
+  const toggleShareMode = () => {
+    setIsShareMode(!isShareMode);
+    setShowShareOptions(!showShareOptions); 
+  };
+  
+
   if (isLoading) {
     return <div>Loading flashcards...</div>;
   }
@@ -131,8 +169,21 @@ const FlashCardList = () => {
 
   return (
     <div className="flashcard-container">
-      
+    <div>
+      {isShareMode ? (
+        <div className="share-options">
+          <button className="btn-option" onClick={handleShare}>Share Selected</button>
+          <button className="btn-option" onClick={toggleShareMode}>Cancel Share</button>
+        </div>
+      ) : (
+        <button className="btn-share" onClick={toggleShareMode}>Share Cards</button>
+      )}
+      </div>
+
+
       <SearchBar onSearch={handleSearch} /> 
+      
+
 
       <div className="filter-container">
       <label htmlFor="statusFilter">Filter by Status:</label>
@@ -177,8 +228,12 @@ const FlashCardList = () => {
             status={card.status} 
             handleUpdate={handleUpdate}
             handleDelete={handleDelete}
+            isSelected={selectedCards.includes(card.id)} 
+            handleSelectCard={handleSelectCard}
+            isShareMode={isShareMode}
           />
         ))}
+        
       </div>
     </div>
   );

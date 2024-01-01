@@ -1,0 +1,42 @@
+/* Share Button Container */
+.share-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  /* Share and Cancel Buttons */
+  .btn-share, .btn-option {
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    background: #007bff; /* Bootstrap primary blue */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .btn-share:hover, .btn-option:hover {
+    background: #0056b3; /* A darker blue */
+    transform: translateY(-2px); /* Slight lift */
+  }
+  
+  /* Specific styles for the Cancel option */
+  .btn-option.cancel {
+    background: #dc3545; /* Bootstrap danger red */
+  }
+  
+  .btn-option.cancel:hover {
+    background: #bd2130; /* A darker red */
+  }
+  
+  /* Optional: Disabled State for buttons */
+  .btn-share:disabled, .btn-option:disabled {
+    background: #6c757d; /* Bootstrap secondary color */
+    cursor: not-allowed;
+  }
+  
