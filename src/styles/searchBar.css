@@ -1,9 +1,9 @@
 
-
 .search-container {
     display: flex;
     justify-content: center;
-    margin: 20px 0; 
+    margin: 10px; 
+    width: 600px;
   }
   
   .search-input {
@@ -12,7 +12,8 @@
     border: 2px solid #ccc; 
     border-radius: 20px; 
     outline: none; 
-    width: calc(100% - 44px); 
+    width: calc(100% - 10px); 
+    width: 100%;
     max-width: 400px; 
   }
   

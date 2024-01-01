@@ -6,6 +6,11 @@ import '../styles/filterOption.css'
 import '../styles/shareButton.css'
 import SearchBar from './SearchBar';
 import plusIcon from '../images/plusIcon.png';
+import deleteIcon from '../images/deleteIcon.png';
+import shareIcon from '../images/shareIcon.png';
+import share from '../images/share.png';
+
+
 
 
 
@@ -169,36 +174,43 @@ const FlashCardList = () => {
 
   return (
     <div className="flashcard-container">
-    <div>
+    <div className="share-container">
       {isShareMode ? (
         <div className="share-options">
-          <button className="btn-option" onClick={handleShare}>Share Selected</button>
-          <button className="btn-option" onClick={toggleShareMode}>Cancel Share</button>
+          <button className="btn-option" onClick={toggleShareMode} title="Cancel Share">
+            <img src={deleteIcon} alt="Cancel" />
+          </button>
+          <button className="btn-option" onClick={handleShare} title="Share Selected">
+            <img src={shareIcon} alt="Share" />
+          </button>
         </div>
       ) : (
-        <button className="btn-share" onClick={toggleShareMode}>Share Cards</button>
+        <button className="btn-share" onClick={toggleShareMode} title="Share Cards">
+          <img src={share} alt="Share Cards" />
+        </button>
       )}
-      </div>
+    </div>
 
-
-      <SearchBar onSearch={handleSearch} /> 
+      
       
 
-
+    <div className="parent-container">
       <div className="filter-container">
-      <label htmlFor="statusFilter">Filter by Status:</label>
-      <select
-        id="statusFilter"
-        value={statusFilter}
-        onChange={(e) => setStatusFilter(e.target.value)}
-      >
-        <option value="All">All</option>
-        <option value="Noted">Noted</option>
-        <option value="Want to Learn">Want to Learn</option>
-        <option value="Learned">Learned</option>
-        
-      </select>
+        <label htmlFor="statusFilter">Filter by Status:</label>
+        <select
+          id="statusFilter"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Noted">Noted</option>
+          <option value="Want to Learn">Want to Learn</option>
+          <option value="Learned">Learned</option>
+        </select>
+        <SearchBar onSearch={handleSearch} />
+      </div>
     </div>
+
       
       <div className="flashcard-list">
         <div className="add-card-placeholder" onClick={toggleAddForm}>

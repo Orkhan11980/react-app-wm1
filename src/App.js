@@ -17,6 +17,7 @@ function App() {
     <ThemeProvider>
     <Router>
     <ThemeApplicator />
+    
       <NavBar />
 
       <Routes>

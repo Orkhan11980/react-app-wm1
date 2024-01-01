@@ -1,6 +1,6 @@
-/* NavBar Styles */
+
 nav {
-    background-color: #f0f0f0; /* Change as needed */
+    background-color: #f0f0f0; 
     padding: 10px;
     display: flex;
     justify-content: space-between;
@@ -16,7 +16,7 @@ nav {
   }
   
   nav ul li {
-    margin-right: 20px; /* Space between links */
+    margin-right: 20px;
   }
   
   nav ul li:last-child {
@@ -25,18 +25,18 @@ nav {
   
   nav a {
     text-decoration: none;
-    color: #333; /* Link color */
+    color: #333; 
     font-size: 16px;
     transition: color 0.3s ease;
   }
   
   nav a:hover {
-    color: #007bff; /* Link hover color */
+    color: #007bff; 
   }
   
-  /* ThemeToggle Button Styles */
+  
   .theme-toggle {
-    background-color: #e0e0e0; /* Button background */
+    background-color: #e0e0e0; 
     border: none;
     padding: 8px 16px;
     border-radius: 5px;
@@ -46,7 +46,7 @@ nav {
   }
   
   .theme-toggle:hover {
-    background-color: #d0d0d0; /* Button hover background */
+    background-color: #d0d0d0; 
   }
   
   .icon-sun, .icon-moon {
