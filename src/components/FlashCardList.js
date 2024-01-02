@@ -13,7 +13,6 @@ import share from '../images/share.png';
 
 
 
-
 const FlashCardList = () => {
   const [flashCards, setFlashCards] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -223,10 +222,11 @@ const FlashCardList = () => {
             </div>
           ) : (
             <div onClick={(e) => e.stopPropagation()} className="new-card-form-content">
-              <input type="text" name="front" placeholder="Front of card" value={newCard.front} onChange={(e) => setNewCard({ ...newCard, front: e.target.value })} className="card-input" />
-              <input type="text" name="back" placeholder="Back of card" value={newCard.back} onChange={(e) => setNewCard({ ...newCard, back: e.target.value })} className="card-input" />
+              <input type="text" required name="front" placeholder="Front of card (required)" value={newCard.front} onChange={(e) => setNewCard({ ...newCard, front: e.target.value })} className="card-input"  />
+              <input type="text" required name="back" placeholder="Back of card (required)" value={newCard.back} onChange={(e) => setNewCard({ ...newCard, back: e.target.value })} className="card-input" />
               <div className="form-controls">
-                <button className="btn add" onClick={handleAddNewCard}>Add Card</button>
+              <button className="btn add" onClick={handleAddNewCard} disabled={!newCard.front.trim() || !newCard.back.trim()}>Add Card</button>
+
                 <button className="btn cancel" onClick={closeForm}>Cancel</button> 
               </div>
             </div>

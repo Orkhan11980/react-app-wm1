@@ -220,7 +220,13 @@ align-items: center;
 padding: 20px;
 }
 
+input:invalid{
+  border: 5px solid red;
+}
+
+
 .card-input {
+
 width: 100%;
 padding: 12px 15px;
 margin: 10px 0;
@@ -273,3 +279,7 @@ background-color: #c82333;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); 
 }
 
+.error {
+  color: red;
+  
+}
