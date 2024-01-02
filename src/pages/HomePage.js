@@ -3,6 +3,7 @@ import React from 'react';
 import githubIcon from '../images/iconGithub.png';
 import Footer from '../footer/Footer.jsx';
 import AnimatedBackground from '../animation/AnimatedBackground'; 
+import MyPhoto from '../images/mine.jpg';
 
 
 
@@ -23,7 +24,7 @@ const HomePage = () => {
       <section className="intro-section">
       <div className="intro-content">
       
-        <img src="https://cdn.icon-icons.com/icons2/2620/PNG/512/among_us_player_red_icon_156942.png" alt="Orkhan Ismayilov" className="profile-photo"/>
+        <img src={MyPhoto} alt="Orkhan Ismayilov" className="profile-photo"/>
         <div className="info">
           <h2 id="thisIs">THIS IS</h2>
            <h1 className="animated-name">{name}</h1>

@@ -1,8 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useForm, ValidationError } from '@formspree/react';
-
 import { gsap } from 'gsap';
+import axios from 'axios';
 import SuccessFormSent from '../success-form-sent/SuccessFormSent.jsx';
 import ShiningButton from '../shining-button/ShiningButton.jsx';
 import '../styles/contact.css';
@@ -17,19 +16,16 @@ const Contacts = () => {
   let messageRef = useRef();
   let buttonRef = useRef();
 
-  const [state, handleSubmit] = useForm('xpzvaqdp');
-  const [nameFilled, setNameFilled] = useState(false);
-  const [emailFilled, setEmailFilled] = useState(false);
-  const [messageFilled, setMessageFilled] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [content, setContent] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
-  const onNameChange = (e) =>
-    e.target.value ? setNameFilled(true) : setNameFilled(false);
-  const onEmailChange = (e) =>
-    e.target.value ? setEmailFilled(true) : setEmailFilled(false);
-  const onMessageChange = (e) =>
-    e.target.value ? setMessageFilled(true) : setMessageFilled(false);
+  const onNameChange = (e) => setName(e.target.value);
+  const onEmailChange = (e) => setEmail(e.target.value);
+  const onMessageChange = (e) => setContent(e.target.value);
 
-    
   useEffect(() => {
     const inputName = nameRef.current.querySelector(`input`);
     const tl = gsap.timeline();
@@ -66,13 +62,28 @@ const Contacts = () => {
       .eventCallback(`onComplete`, () => inputName.focus());
   }, [headerRef]);
 
-  if (state.succeeded) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      // Sending a POST request to your local server
+      await axios.post('http://localhost:3006/messages', { name, email, content });
+      setSubmitted(true); // Update the state to indicate successful submission
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      // Handle errors here (show user a message, etc.)
+    }
+
+    setSubmitting(false);
+  };
+
+   if (submitted) {
     return <SuccessFormSent />;
   }
-
   return (
     <div className="contacts">
-      <AnimatedBackground /> 
+      <AnimatedBackground />
       <h1 ref={headerRef} className="contact_form_header">
         Feel free to contact...
       </h1>
@@ -83,19 +94,13 @@ const Contacts = () => {
               id="name"
               name="name"
               onChange={onNameChange}
-              className={`contact_form_input${nameFilled ? ' filled' : ''}`}
+              className={`contact_form_input${name ? ' filled' : ''}`}
               minLength={3}
               required
             ></input>
             <label className="contact_form_label" htmlFor="name">
               Name
             </label>
-            <ValidationError
-              className="form_validation_error"
-              prefix="Name"
-              field="name"
-              errors={state.errors}
-            />
           </div>
           <div ref={emailRef} className="contact_form_field">
             <input
@@ -103,50 +108,37 @@ const Contacts = () => {
               name="email"
               type="email"
               onChange={onEmailChange}
-              className={`contact_form_input${emailFilled ? ' filled' : ''}`}
+              className={`contact_form_input${email ? ' filled' : ''}`}
               required
             />
             <label className="contact_form_label" htmlFor="email">
               E-mail
             </label>
-            <ValidationError
-              className="form_validation_error"
-              prefix="Email"
-              field="email"
-              errors={state.errors}
-            />
           </div>
         </div>
         <div ref={messageRef} className="contact_form_field">
-          <input
+          <textarea
             id="message"
             name="message"
             onChange={onMessageChange}
-            className={`contact_form_input${messageFilled ? ' filled' : ''}`}
+            className={`contact_form_input${content ? ' filled' : ''}`}
             minLength={10}
             required
-          ></input>
+          ></textarea>
           <label className="contact_form_label" htmlFor="message">
             Your message for me
           </label>
-          <ValidationError
-            className="form_validation_error"
-            prefix="Message"
-            field="message"
-            errors={state.errors}
-          />
         </div>
         <ShiningButton
           ref={buttonRef}
-          text={state.submitting ? 'Sending' : 'Send'}
+          text={submitting ? 'Sending...' : 'Send'}
           className="shining_button"
           type="submit"
-          disabled={state.submitting}
+          disabled={submitting}
         />
       </form>
       <Footer />
     </div>
-    
   );
 };
 

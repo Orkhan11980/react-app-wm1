@@ -23,7 +23,9 @@
     "scripts": {
         "predeploy": "npm run build",
         "deploy": "gh-pages -d build",
-        "start": "react-scripts start",
+        "start": "concurrently \"npm:server\" \"npm:react\"",
+        "server": "json-server --watch ./my-json-server/db.json --port 3006",
+        "react": "PORT=3005 react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
@@ -47,6 +49,7 @@
         ]
     },
     "devDependencies": {
+        "concurrently": "^8.2.2",
         "gh-pages": "^6.1.1"
     }
 }
