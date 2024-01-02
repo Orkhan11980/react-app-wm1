@@ -59,10 +59,24 @@ const deleteCard = async (id) => {
   }
 };
 
+const updateCardsOrder = async (cards) => {
+  try {
+    
+    const cardIds = cards.map(card => card.id);
+
+    
+    const response = await axios.put(`${baseUrl}/order`, { order: cardIds });
+    return handleResponse(response);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export {
   getAllCards,
   getCardById,
   createCard,
   updateCard,
-  deleteCard
+  deleteCard,
+  updateCardsOrder
 };

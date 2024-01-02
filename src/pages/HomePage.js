@@ -1,7 +1,8 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import githubIcon from '../images/iconGithub.png';
-
+import Footer from '../footer/Footer.jsx';
+import AnimatedBackground from '../animation/AnimatedBackground'; 
 
 
 
@@ -12,52 +13,12 @@ const HomePage = () => {
         <span key={idx} style={{ '--i': idx }}>{letter.trim() === "" ? "\u00A0" : letter}</span>
       ));
 
-      useEffect(() => {
-        const container = document.getElementById('animated-background-container');
-        
-        function adjustContainerHeight() {
-          const docHeight = document.body.scrollHeight;
-          container.style.height = docHeight + 'px';
-      }
+      
   
-      window.addEventListener('resize', adjustContainerHeight);
-      adjustContainerHeight(); 
-
-        function createMovingElement() {
-          const elem = document.createElement('div');
-          elem.classList.add('animated-element');
-          elem.style.position = 'absolute';
-          elem.style.left = `${Math.random() * 100}%`;
-          elem.style.top = '-50px';
-          elem.style.width = '50px';
-          elem.style.height = '50px';
-          elem.style.backgroundColor = '#faa';
-          elem.style.opacity = Math.random().toFixed(2);
-          container.appendChild(elem);
-    
-          const keyframes = [
-            { transform: 'translateY(0)' },
-            { transform: `translateY(${document.body.scrollHeight}px)` } 
-          ];
-          const timing = {
-            duration: 3000 + Math.random() * 10000, 
-            iterations: 1,
-            easing: 'linear'
-          };
-          const animation = elem.animate(keyframes, timing);
-          animation.onfinish = () => elem.remove(); 
-        }
-    
-        
-        const intervalId = setInterval(createMovingElement, 500);
-    
-        return () => {
-          clearInterval(intervalId);
-          window.removeEventListener('resize', adjustContainerHeight);
-      };
-      }, []);
+  
   return (
     <div className="home-container">
+      <AnimatedBackground />
     <div id="animated-background-container"></div>
       <section className="intro-section">
       <div className="intro-content">
@@ -162,7 +123,8 @@ const HomePage = () => {
       </section>
 
       <footer>
-        <p>© 2023 Orkhan ismayilov</p>
+        <Footer />
+        
       </footer>
     </div>
  
