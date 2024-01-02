@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3003/cards';
+const baseUrl = 'http://localhost:3002/cards';
 
 const handleResponse = (response) => {
   

@@ -152,7 +152,7 @@ const FlashCardList = () => {
     const body = encodeURIComponent(`Here are the flashcards: \n\n${emailContent}`);
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
   
-    
+    console.log(selectedCardDetails)
     window.open(mailtoLink, '_blank');
     setIsShareMode(false);
     setShowShareOptions(false);
@@ -161,6 +161,9 @@ const FlashCardList = () => {
   const toggleShareMode = () => {
     setIsShareMode(!isShareMode);
     setShowShareOptions(!showShareOptions); 
+    if (isShareMode) { 
+      setSelectedCards([]); 
+    }
   };
   
 

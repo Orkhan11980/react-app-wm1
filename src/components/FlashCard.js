@@ -1,5 +1,6 @@
 import React, { useState, useCallback, memo } from 'react';
 import '../styles/flashCard.css';
+import '../styles/checkbox.css'
 
 const FlashCard = memo(({ id, front, back, lastModified, status, handleUpdate, handleDelete,isSelected, handleSelectCard,isShareMode }) => {
   const [cardState, setCardState] = useState({
@@ -69,16 +70,24 @@ const FlashCard = memo(({ id, front, back, lastModified, status, handleUpdate, h
 
   return (
     <div className={`flashcard ${isSelected ? 'selected' : ''}`} onClick={toggleFlipCard}>
+    <div className="card-checkbox">
     {isShareMode && (
+      <>
       <input 
         type="checkbox" 
+        id={`checkbox-${id}`}
+        className="custom-checkbox"
         checked={isSelected} 
         onClick={(e) => {
           e.stopPropagation();
           handleSelectCard(id);
         }}
       />
+       <label htmlFor={`checkbox-${id}`}></label>
+    </>
     )}
+    
+    </div>
       {cardState.isEditing ? (
         <EditModeComponent
           editFront={cardState.editFront}
