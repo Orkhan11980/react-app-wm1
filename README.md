@@ -1,6 +1,6 @@
 
 ## Deployment
-Check out the live version here: [Live Demo](https://orkhan11980.github.io/)
+Check out the live version here: [Live Demo](https://orkhan11980.github.io/react-app-wm1/)
 
 
 ### Features
