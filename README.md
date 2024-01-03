@@ -69,3 +69,16 @@ Execute the following command to start both servers:
     ```bash
     npm start
     ```
+   
+## Technology Stack
+
+
+- **Frontend**: React - A JavaScript library for building user interfaces.
+- **Backend**: JSON Server - A full fake REST API with zero coding.
+- **Concurrent Execution**: Concurrently - A utility that manages multiple npm commands concurrently.
+
+
+## Contact
+
+- **Orkhan Ismayilov**: [LinkedIn](https://www.linkedin.com/in/orkhanismayilov11980/)
+- **Email**: oismayilov11980@ada.edu.az
