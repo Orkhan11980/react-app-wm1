@@ -1,3 +1,8 @@
+
+## Deployment
+Check out the live version here: [Live Demo](https://orkhan11980.github.io/)
+
+
 ### Features
 
 #### Home Page
