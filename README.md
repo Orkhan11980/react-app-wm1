@@ -1,70 +1,71 @@
-# Getting Started with Create React App
+### Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Home Page
 
-## Available Scripts
+- **General Introduction**: A brief biography or introduction to myself, outlining my skills, experiences.
 
-In the project directory, you can run:
+- **Project Showcase**: A list of all the projects I've completed or are in progress. Each project has:
+  - A brief description
+  - Technologies used
+  - An external link to the project's website or repository(which are not deployed)
 
-### `npm start`
+#### Flashcards Page
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Interactive Learning Tool**: Users can view, flip, and learn from flashcards.
+  - **Add Flashcards**: Users can add new flashcards with a question on the front and an answer on the back. The new cards are saved to `/cards` on the JSON server.
+  - **Flip Functionality**: Users can flip the cards to see the question or answer.
+  - **Filter and Search**: Users can filter flashcards by categories or tags and use a search function to quickly find specific cards.
+  - **Drag and Drop**: Organize your flashcards or study sessions by dragging and dropping cards into custom orders.
+  - **Infinite Pagination**: Scroll through flashcards endlessly with the infinite pagination feature, making it easy to continuously study without interruption :).
+  - **Sort Functionality**: Sort the flashcards by date added (latest and oldest), or by last modified date for efficient studying.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Contact Page
 
-### `npm test`
+- **Messaging Form**: A simple form where users can leave their name, email, and a message.
+  - **Data Handling**: Submitted messages are saved to `/messages` on the JSON server.
+  - **Validation and Feedback**: Ensures all fields are filled and provides confirmation upon successful submission.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### JavaScript Animations
 
-### `npm run build`
+- **Page-Wide Animations**: Each page features custom JavaScript animations, enhancing the user experience and interface aesthetics. From smooth transitions between pages to interactive elements on hover, the application provides a dynamic and engaging user environment.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ensure you have the following installed:
 
-### `npm run eject`
+- Node.js
+- npm
+- Visual Studio Code - Code Editor (or any other you prefer)
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Clone the repository**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    git clone https://github.com/Orkhan11980/react-app-wm1.git
+    cd [repository-directory]
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. **Install Dependencies**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    ```bash
+    npm install
 
-## Learn More
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Environment Setup**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    - Create a `.env` file and configure your application's ports and database URLs as necessary.
 
-### Code Splitting
+### Run the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+This application is configured to run both the client-side React application and the JSON server concurrently, simplifying the development process and mimicking a more production-like environment.
 
-### Analyzing the Bundle Size
+- **Concurrent Execution**: By utilizing `concurrently`, the npm script is configured to launch both the React application and JSON server in parallel but on different ports. The default configuration runs the React app on port 3000 and the JSON server on port 3001.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Execute the following command to start both servers:
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    ```bash
+    npm start
+    ```
