@@ -51,7 +51,6 @@ Ensure you have the following installed:
 
     ```bash
     npm install
-
     ```
 
 3. **Environment Setup**
@@ -68,7 +67,7 @@ Execute the following command to start both servers:
 
     ```bash
     npm start
-    ```
+    
    
 ## Technology Stack
 
