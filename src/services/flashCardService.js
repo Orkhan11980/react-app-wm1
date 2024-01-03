@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3006/cards';
+const baseUrl = 'http://localhost:3001/cards';
 
 const handleResponse = (response) => {
   
@@ -69,6 +69,8 @@ const updateCardsOrder = async (cards) => {
     return handleResponse(response);
   } catch (error) {
     handleError(error);
+    throw new Error('Failed to update the order of the flashcards. Please try again.');
+
   }
 };
 

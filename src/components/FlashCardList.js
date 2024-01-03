@@ -1,127 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import FlashCard from './FlashCard';
-import { getAllCards, updateCard, deleteCard, createCard } from '../services/flashCardService';
 import '../styles/flashCard.css';
 import '../styles/filterOption.css'
 import '../styles/shareButton.css'
-import SearchBar from './SearchBar';
-import plusIcon from '../images/plusIcon.png';
-import deleteIcon from '../images/deleteIcon.png';
-import shareIcon from '../images/shareIcon.png';
-import share from '../images/share.png';
+import FilterOptions from './FilterOptions';
+import ShareOptions from './ShareOptions';
+import AddCardForm from './AddCardForm';
+import useFlashCards from '../hooks/useFlashCards';
+//import { updateCardsOrder } from '../services/flashCardService';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 
 
 
 const FlashCardList = () => {
-  const [flashCards, setFlashCards] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [newCard, setNewCard] = useState({ front: '', back: '',status: 'Noted', lastModified: formatDate(new Date()) });
+  const {
+    flashCards,
+    isLoading,
+    error,
+   // setFlashCards,
+    newCard,
+    setNewCard,
+    handleUpdate,
+    handleDelete,
+    handleAddNewCard
+  } = useFlashCards();
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [selectedCards, setSelectedCards] = useState([]);
   const [isShareMode, setIsShareMode] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
+ 
 
+  
 
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchFlashCards = async () => {
-      try {
-        let cards = await getAllCards();
-        cards.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
-        if (isMounted) {
-          setFlashCards(cards);
-        }
-      } catch (error) {
-        console.error('Error fetching flash cards:', error);
-        if (isMounted) {
-          setError('Failed to fetch flash cards. Make sure server is running');
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        } 
-      }
-    };
-
-    fetchFlashCards();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const handleSearch = (search) => {
     setSearchTerm(search);
   };
   
-
-  function formatDate(date) {
-    const d = new Date(date),
-          month = '' + (d.getMonth() + 1),  
-          day = '' + d.getDate(),
-          year = d.getFullYear(),
-          hour = '' + d.getHours(),
-          minute = '' + d.getMinutes();
   
-    return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/') + ', ' + [hour.padStart(2, '0'), minute.padStart(2, '0')].join(':');
-  }
   
   const filteredFlashCards = flashCards.filter(card =>
     (card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
      card.back.toLowerCase().includes(searchTerm.toLowerCase())) &&
     (statusFilter === 'All' || card.status === statusFilter)
   );
-
-  const handleUpdate = async (id, updatedData) => {
-    try {
-      const newDataWithTime = {
-        ...updatedData,
-        lastModified: formatDate(new Date())
-      };
-      await updateCard(id, newDataWithTime);
-      setFlashCards(flashCards.map(card => (card.id === id ? { ...card, ...newDataWithTime } : card))
-      .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified)));
-    } catch (error) {
-      console.error('Error updating flash card:', error);
-      setError('Failed to update flash card');
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteCard(id);
-      setFlashCards(flashCards.filter(card => card.id !== id));
-    } catch (error) {
-      console.error('Error deleting flash card:', error);
-      setError('Failed to delete flash card');
-    }
-  };
-
-  
-
-
-  const handleAddNewCard = async () => {
-  
-    try {
-      const newCardWithTime = {
-        ...newCard,
-        lastModified: formatDate(new Date()) 
-      };
-      const card = await createCard(newCardWithTime);
-      setFlashCards([card, ...flashCards]
-        .sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified)));
-        setNewCard({ front: '', back: '', status: 'Noted', lastModified: formatDate(new Date()) }); 
-        setShowAddForm(false);  
-    } catch (error) {
-      console.error("Error creating new card:", error);
-    }
-  };
- 
 
   const toggleAddForm = () => {
     setShowAddForm(!showAddForm);
@@ -173,65 +99,35 @@ const FlashCardList = () => {
   if (error) {
     return <div>{error}</div>;
   }
+  console.log(flashCards);
 
   return (
+    
     <div className="flashcard-container">
-    <div className="share-container">
-      {isShareMode ? (
-        <div className="share-options">
-          <button className="btn-option" onClick={toggleShareMode} title="Cancel Share">
-            <img src={deleteIcon} alt="Cancel" />
-          </button>
-          <button className="btn-option" onClick={handleShare} title="Share Selected">
-            <img src={shareIcon} alt="Share" />
-          </button>
-        </div>
-      ) : (
-        <button className="btn-share" onClick={toggleShareMode} title="Share Cards">
-          <img src={share} alt="Share Cards" />
-        </button>
-      )}
-    </div>
+              <ShareOptions
+                isShareMode={isShareMode}
+                toggleShareMode={toggleShareMode}
+                handleShare={handleShare}
+            />
 
-      
-      
+    
 
-    <div className="parent-container">
-      <div className="filter-container">
-        <label htmlFor="statusFilter">Filter by Status:</label>
-        <select
-          id="statusFilter"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="All">All</option>
-          <option value="Noted">Noted</option>
-          <option value="Want to Learn">Want to Learn</option>
-          <option value="Learned">Learned</option>
-        </select>
-        <SearchBar onSearch={handleSearch} />
-      </div>
-    </div>
+               <FilterOptions
+                statusFilter={statusFilter}
+                setStatusFilter={setStatusFilter}
+                handleSearch={handleSearch}
+            />
 
       
       <div className="flashcard-list">
-        <div className="add-card-placeholder" onClick={toggleAddForm}>
-          {!showAddForm ? (
-            <div className="add-icon-container">
-              <img src={plusIcon} alt="Add New" className="plus-icon" />
-            </div>
-          ) : (
-            <div onClick={(e) => e.stopPropagation()} className="new-card-form-content">
-              <input type="text" required name="front" placeholder="Front of card (required)" value={newCard.front} onChange={(e) => setNewCard({ ...newCard, front: e.target.value })} className="card-input"  />
-              <input type="text" required name="back" placeholder="Back of card (required)" value={newCard.back} onChange={(e) => setNewCard({ ...newCard, back: e.target.value })} className="card-input" />
-              <div className="form-controls">
-              <button className="btn add" onClick={handleAddNewCard} disabled={!newCard.front.trim() || !newCard.back.trim()}>Add Card</button>
-
-                <button className="btn cancel" onClick={closeForm}>Cancel</button> 
-              </div>
-            </div>
-          )}
-        </div>
+              <AddCardForm
+                showAddForm={showAddForm}
+                toggleAddForm={toggleAddForm}
+                newCard={newCard}
+                setNewCard={setNewCard}
+                handleAddNewCard={handleAddNewCard}
+                closeForm={closeForm}
+            />
   
         {filteredFlashCards.map(card => (
           <FlashCard 
@@ -256,3 +152,4 @@ const FlashCardList = () => {
 };
 
 export default FlashCardList;
+
