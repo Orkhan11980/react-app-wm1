@@ -67,7 +67,7 @@ Execute the following command to start both servers:
 
     ```bash
     npm start
-    
+    ```
    
 ## Technology Stack
 

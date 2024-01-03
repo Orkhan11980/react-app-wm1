@@ -212,4 +212,3 @@ const FlashCardList = () => {
 };
 
 export default FlashCardList;
-
