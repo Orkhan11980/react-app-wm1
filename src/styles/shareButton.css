@@ -1,0 +1,55 @@
+
+.share-container {
+    position: absolute; 
+    top: 80px;
+    right: 40px; 
+    z-index: 1000; 
+  }
+  
+
+  .btn-option, .btn-share {
+    position: relative;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 12px;
+  }
+  
+  .btn-share:hover, .btn-option:hover {
+    background: #0056b3; 
+    transform: translateY(-2px); 
+  }
+
+  
+  .btn-option.cancel {
+    background: #dc3545;
+  }
+  
+  .btn-option.cancel:hover {
+    background: #bd2130;
+  }
+  
+  
+  .btn-share:disabled, .btn-option:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  .btn-option:hover::after, .btn-share:hover::after {
+    /* content: attr(title); */
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1;
+    
+  }
+  .btn-option img, .btn-share img {
+    width: 58px;
+    display: block;
+    height: auto;
+  }
