@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import FlashCard from './FlashCard';
+//import FlashCard from './FlashCard';
 import '../styles/flashCard.css';
 import '../styles/filterOption.css'
 import '../styles/shareButton.css'
 import FilterOptions from './FilterOptions';
 import ShareOptions from './ShareOptions';
 import AddCardForm from './AddCardForm';
+import FlashCardItem from './FlashCardItem';
 import useFlashCards from '../hooks/useFlashCards';
 //import { updateCardsOrder } from '../services/flashCardService';
-// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import { DragDropContext, Droppable} from 'react-beautiful-dnd';
 
 
 
@@ -18,7 +18,7 @@ const FlashCardList = () => {
     flashCards,
     isLoading,
     error,
-   // setFlashCards,
+   setFlashCards,
     newCard,
     setNewCard,
     handleUpdate,
@@ -34,14 +34,32 @@ const FlashCardList = () => {
   const [showShareOptions, setShowShareOptions] = useState(false);
  
 
-  
-
-
   const handleSearch = (search) => {
     setSearchTerm(search);
   };
   
+  const reorder = (list, startIndex, endIndex) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
   
+    return result;
+  };
+  
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+  
+    const items = reorder(
+      flashCards,
+      result.source.index,
+      result.destination.index
+    );
+  
+    
+    setFlashCards(items);
+  };
   
   const filteredFlashCards = flashCards.filter(card =>
     (card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -102,53 +120,57 @@ const FlashCardList = () => {
   console.log(flashCards);
 
   return (
-    
-    <div className="flashcard-container">
-              <ShareOptions
-                isShareMode={isShareMode}
-                toggleShareMode={toggleShareMode}
-                handleShare={handleShare}
-            />
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className="flashcard-container">
+        <ShareOptions
+          isShareMode={isShareMode}
+          toggleShareMode={toggleShareMode}
+          handleShare={handleShare}
+        />
 
-    
+        <FilterOptions
+          statusFilter={statusFilter}
+          setStatusFilter={setStatusFilter}
+          handleSearch={handleSearch}
+        />
 
-               <FilterOptions
-                statusFilter={statusFilter}
-                setStatusFilter={setStatusFilter}
-                handleSearch={handleSearch}
-            />
-
-      
-      <div className="flashcard-list">
-              <AddCardForm
-                showAddForm={showAddForm}
-                toggleAddForm={toggleAddForm}
-                newCard={newCard}
-                setNewCard={setNewCard}
-                handleAddNewCard={handleAddNewCard}
-                closeForm={closeForm}
-            />
-  
-        {filteredFlashCards.map(card => (
-          <FlashCard 
-            key={card.id} 
-            id={card.id}
-            front={card.front} 
-            back={card.back} 
-            lastModified={card.lastModified} 
-            status={card.status} 
-            handleUpdate={handleUpdate}
-            handleDelete={handleDelete}
-            isSelected={selectedCards.includes(card.id)} 
-            handleSelectCard={handleSelectCard}
-            isShareMode={isShareMode}
+        <div className="flashcard-list">
+          <AddCardForm
+            showAddForm={showAddForm}
+            toggleAddForm={toggleAddForm}
+            newCard={newCard}
+            setNewCard={setNewCard}
+            handleAddNewCard={handleAddNewCard}
+            closeForm={closeForm}
           />
-        ))}
-        
+
+          <Droppable droppableId="unique-droppable-id">
+            {(provided) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className="flashcard-list"
+              >
+                {filteredFlashCards.map((card, index) => (
+                  <FlashCardItem
+                    key={card.id}
+                    card={card}
+                    index={index}
+                    selectedCards={selectedCards}
+                    handleSelectCard={handleSelectCard}
+                    isShareMode={isShareMode}
+                    handleUpdate={handleUpdate}
+                    handleDelete={handleDelete}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </div>
       </div>
-    </div>
+    </DragDropContext>
   );
-  
 };
 
 export default FlashCardList;

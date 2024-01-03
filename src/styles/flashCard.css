@@ -283,3 +283,23 @@ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   color: red;
   
 }
+
+.flashcard.is-dragging {
+  background-color: #f4f4f4;
+}
+
+.flashcard.selected {
+  border-color: #007bff;
+  background-color: #e7f3ff;
+}
+
+
+.card-face {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.front, .back {
+  padding: 10px;
+}

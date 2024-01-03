@@ -69,10 +69,10 @@ const Contacts = () => {
     try {
       // Sending a POST request to your local server
       await axios.post('http://localhost:3001/messages', { name, email, content });
-      setSubmitted(true); // Update the state to indicate successful submission
+      setSubmitted(true); 
     } catch (error) {
       console.error('Failed to send message:', error);
-      // Handle errors here (show user a message, etc.)
+      
     }
 
     setSubmitting(false);
