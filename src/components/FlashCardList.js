@@ -7,6 +7,7 @@ import ShareOptions from './ShareOptions';
 import AddCardForm from './AddCardForm';
 import FlashCardItem from './FlashCardItem';
 import useFlashCards from '../hooks/useFlashCards';
+import InfiniteScroll from 'react-infinite-scroll-component'; 
 //import { updateCardsOrder } from '../services/flashCardService';
 import { DragDropContext, Droppable} from 'react-beautiful-dnd';
 
@@ -22,7 +23,9 @@ const FlashCardList = () => {
     setNewCard,
     handleUpdate,
     handleDelete,
-    handleAddNewCard
+    handleAddNewCard,
+    loadNextBatch,
+    hasMore
   } = useFlashCards();
 
   const [showAddForm, setShowAddForm] = useState(false);
@@ -39,7 +42,7 @@ const FlashCardList = () => {
     setSearchTerm(search);
   };
   
-  const reorder = (list, startIndex, endIndex) => {
+    const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
     result.splice(endIndex, 0, removed);
@@ -61,7 +64,9 @@ const FlashCardList = () => {
     
     setFlashCards(items);
   };
-  
+
+ 
+
   const filteredFlashCards = flashCards.filter(card =>
     (card.front.toLowerCase().includes(searchTerm.toLowerCase()) ||
      card.back.toLowerCase().includes(searchTerm.toLowerCase())) &&
@@ -163,7 +168,17 @@ const FlashCardList = () => {
             handleAddNewCard={handleAddNewCard}
             closeForm={closeForm}
           />
-
+          <InfiniteScroll
+            dataLength={flashCards.length} 
+            next={loadNextBatch} 
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>} 
+            endMessage={
+              <p style={{ textAlign: 'center' }}>
+                <b>You have seen all flashcards!</b>
+              </p>
+            }
+          >
           <Droppable droppableId="unique-droppable-id">
             {(provided) => (
               <div
@@ -187,6 +202,9 @@ const FlashCardList = () => {
               </div>
             )}
           </Droppable>
+          
+        </InfiniteScroll>
+        
         </div>
       </div>
     </DragDropContext>

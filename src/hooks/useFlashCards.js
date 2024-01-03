@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getAllCards, updateCard, deleteCard, createCard } from '../services/flashCardService';
 import { formatDate } from '../utils/utils';  
 
@@ -10,37 +10,65 @@ const useFlashCards = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [newCard, setNewCard] = useState({ front: '', back: '',status: 'Noted', lastModified: formatDate(new Date()) });
+  const [page, setPage] = useState(1); 
+  const [hasMore, setHasMore] = useState(true); 
+  const scrollRef = useRef(0);
+
+  const batchSize = 10; 
   
   
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchFlashCards = async () => {
-      try {
-        let cards = await getAllCards();
-        cards.sort((a, b) => new Date(b.lastModified) - new Date(a.lastModified));
-        if (isMounted) {
-          setFlashCards(cards);
-        }
-      } catch (error) {
-        console.error('Error fetching flash cards:', error);
-        if (isMounted) {
-          setError('Failed to fetch flash cards. Make sure server is running');
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        } 
-      }
-    };
-
-    fetchFlashCards();
+  
+  
+  const loadNextBatch = () => {
+    if (hasMore) {
+      
+      scrollRef.current = window.scrollY;
+      
+     
+      setTimeout(() => {
+        setPage(page => page + 1);
+      }, 1000);
+    }
+  };
+  
 
     
-    return () => {
-      isMounted = false;
+
+  useEffect(() => {
+    const fetchFlashCards = async () => {
+      setIsLoading(true); 
+      try {
+        console.log("Current page:", page);
+        let cards = await getAllCards(page,batchSize); 
+        
+        if (cards.length < batchSize) {
+          setHasMore(false); 
+        }
+
+        setFlashCards(prevCards => {
+          const allCards = new Set([...prevCards, ...cards]);
+          return Array.from(allCards);
+        });
+        
+
+      } catch (error) {
+        console.error('Error fetching flash cards:', error);
+        setError('Failed to fetch flash cards. Make sure server is running');
+      } finally {
+        setIsLoading(false);
+
+        setTimeout(() => {
+          window.scrollTo(0, scrollRef.current);
+        }, 0);
+      }
     };
-  }, []);
+    
+    fetchFlashCards(); 
+  }, [page]); 
+
+ 
+  
+  
 
   // Update a flashcard
   const handleUpdate = async (id, updatedData) => {
@@ -65,7 +93,7 @@ const useFlashCards = () => {
     }
   };
 
-  // Delete a flashcard
+  
   const handleDelete = async (id) => {
     try {
       await deleteCard(id);
@@ -76,7 +104,6 @@ const useFlashCards = () => {
     }
   };
 
-  // Add a new flashcard
   const handleAddNewCard = async () => { 
     try {
       const newCardWithTime = {
@@ -103,7 +130,9 @@ const useFlashCards = () => {
     newCard,
     setNewCard,
     setFlashCards,
-    handleAddNewCard
+    handleAddNewCard,
+    loadNextBatch, 
+    hasMore
   };
 };
 

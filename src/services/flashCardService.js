@@ -14,14 +14,18 @@ const handleError = (error) => {
   throw error;
 };
 
-const getAllCards = async () => {
+ const getAllCards = async (page = 1, limit = 10) => {
+  const url = `${baseUrl}?_page=${page}&_limit=${limit}`;
+  console.log(`Requesting: ${url}`); 
   try {
-    const response = await axios.get(baseUrl);
+    const response = await axios.get(url);
     return handleResponse(response);
   } catch (error) {
     handleError(error);
   }
 };
+
+
 
 const getCardById = async (id) => {
   try {
