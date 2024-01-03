@@ -1,15 +1,25 @@
 {
   "files": {
-    "main.css": "/react-app-wm1/static/css/main.2a3b5fb0.css",
-    "main.js": "/react-app-wm1/static/js/main.9dda714b.js",
+    "main.css": "/react-app-wm1/static/css/main.05589dfe.css",
+    "main.js": "/react-app-wm1/static/js/main.b9341f19.js",
     "static/media/backimg.avif": "/react-app-wm1/static/media/backimg.61730063a04062e78d6b.avif",
     "static/media/title.avif": "/react-app-wm1/static/media/title.a946032bec6cc6839761.avif",
+    "static/media/mine.jpg": "/react-app-wm1/static/media/mine.f125b2e1a86c0ae4fd29.jpg",
+    "static/media/BlackOpsOne-Regular.woff": "/react-app-wm1/static/media/BlackOpsOne-Regular.869060133b485ad69226.woff",
+    "static/media/segoe-script-2-webfont.woff": "/react-app-wm1/static/media/segoe-script-2-webfont.7e80193f3aad19ae9d54.woff",
+    "static/media/shareIcon.png": "/react-app-wm1/static/media/shareIcon.4ef6995fa0b4f940ec2e.png",
+    "static/media/deleteIcon.png": "/react-app-wm1/static/media/deleteIcon.23122a2b40e995b47c9e.png",
+    "static/media/share.png": "/react-app-wm1/static/media/share.2f74155d41ad91d334e5.png",
+    "static/media/icons8-github.svg": "/react-app-wm1/static/media/icons8-github.dc49a960a2d3c5a49c806f6188a7733b.svg",
+    "static/media/icons8-gmail.svg": "/react-app-wm1/static/media/icons8-gmail.23f2855932bb00f8e4fc9f50639462b5.svg",
+    "static/media/icons8-telegram.svg": "/react-app-wm1/static/media/icons8-telegram.13533387310c8229738b6168894819f8.svg",
     "index.html": "/react-app-wm1/index.html",
-    "main.2a3b5fb0.css.map": "/react-app-wm1/static/css/main.2a3b5fb0.css.map",
-    "main.9dda714b.js.map": "/react-app-wm1/static/js/main.9dda714b.js.map"
+    "static/media/icons8-linkedin.svg": "/react-app-wm1/static/media/icons8-linkedin.e9b8df20d092b20af087c400014ff4c8.svg",
+    "main.05589dfe.css.map": "/react-app-wm1/static/css/main.05589dfe.css.map",
+    "main.b9341f19.js.map": "/react-app-wm1/static/js/main.b9341f19.js.map"
   },
   "entrypoints": [
-    "static/css/main.2a3b5fb0.css",
-    "static/js/main.9dda714b.js"
+    "static/css/main.05589dfe.css",
+    "static/js/main.b9341f19.js"
   ]
 }
