@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect , useCallback} from 'react';
 //import FlashCard from './FlashCard';
 import '../styles/flashCard.css';
 import '../styles/filterOption.css'
@@ -18,7 +18,7 @@ const FlashCardList = () => {
     flashCards,
     isLoading,
     error,
-   setFlashCards,
+    setFlashCards,
     newCard,
     setNewCard,
     handleUpdate,
@@ -32,6 +32,8 @@ const FlashCardList = () => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [isShareMode, setIsShareMode] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
+  const [sortOrder, setSortOrder] = useState(''); // Add this state for sorting
+
  
 
   const handleSearch = (search) => {
@@ -108,7 +110,25 @@ const FlashCardList = () => {
       setSelectedCards([]); 
     }
   };
+  const sortFlashCards = useCallback((order) => {
+    const sortedCards = [...flashCards].sort((a, b) => {
+      if (order === 'newest') {
+        return new Date(b.lastModified) - new Date(a.lastModified);
+      } else if (order === 'oldest') {
+        return new Date(a.lastModified) - new Date(b.lastModified);
+      }
+      return 0;
+    });
+    setFlashCards(sortedCards);
+  }, [flashCards, setFlashCards]); 
   
+  
+  useEffect(() => {
+    if (sortOrder !== '') {
+      sortFlashCards(sortOrder);
+    }
+  }, [sortOrder, sortFlashCards]); // sortFlashCards is now stable and won't cause the warning
+   
 
   if (isLoading) {
     return <div>Loading flashcards...</div>;
@@ -132,6 +152,7 @@ const FlashCardList = () => {
           statusFilter={statusFilter}
           setStatusFilter={setStatusFilter}
           handleSearch={handleSearch}
+          setSortOrder={setSortOrder} 
         />
 
         <div className="flashcard-list">
