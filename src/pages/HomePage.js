@@ -28,7 +28,7 @@ const HomePage = () => {
         <div className="info">
           <h2 id="thisIs">THIS IS</h2>
            <h1 className="animated-name">{name}</h1>
-          <p id="infoText">I am a passionate Frontend Developer deepening my knowledge in React, currently looking for new job opportunities.o...</p>
+          <p id="infoText">I am a passionated Developer espicially deepening my knowledge in Back-End, currently looking for new job opportunities...</p>
           <a href="mailto:oismayilov11980@ada.edu.az" className="hire-me-btn">Hire me</a>
 
         </div>

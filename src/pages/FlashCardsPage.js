@@ -9,7 +9,7 @@ const FlashCardsPage = () => {
   return (
     <div>
       <AnimatedBackground />
-      <h1>Flash Cards</h1>
+      <h1 style={{ color: '#007bff' }}>Flash Cards</h1>
       <FlashCardList />
     </div>
   );

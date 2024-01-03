@@ -10,8 +10,7 @@ const useFlashCards = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [newCard, setNewCard] = useState({ front: '', back: '',status: 'Noted', lastModified: formatDate(new Date()) });
-
-
+  
   
   useEffect(() => {
     let isMounted = true;

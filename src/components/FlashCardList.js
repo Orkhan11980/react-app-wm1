@@ -1,5 +1,4 @@
 import React, { useState,useEffect , useCallback} from 'react';
-//import FlashCard from './FlashCard';
 import '../styles/flashCard.css';
 import '../styles/filterOption.css'
 import '../styles/shareButton.css'
@@ -32,7 +31,7 @@ const FlashCardList = () => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [isShareMode, setIsShareMode] = useState(false);
   const [showShareOptions, setShowShareOptions] = useState(false);
-  const [sortOrder, setSortOrder] = useState(''); // Add this state for sorting
+  const [sortOrder, setSortOrder] = useState(''); 
 
  
 
@@ -127,7 +126,7 @@ const FlashCardList = () => {
     if (sortOrder !== '') {
       sortFlashCards(sortOrder);
     }
-  }, [sortOrder, sortFlashCards]); // sortFlashCards is now stable and won't cause the warning
+  }, [sortOrder, sortFlashCards]); 
    
 
   if (isLoading) {
